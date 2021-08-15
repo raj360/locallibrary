@@ -70,3 +70,21 @@ class BookInstance(models.Model):
     def __str__(self):
         """String for representing the Model Object"""
         return f'{self.id} ({self.book.id})'
+
+    class Author(models.Model):
+        """This model represents an Author"""
+        first_name = models.CharField(max_length=100)
+        last_name = models.CharField(max_length=100)
+        date_of_birth = models.DateField(null=True, blank=True)
+        date_of_death = models.DateField('Died', null=True, blank=True)
+
+        class Meta:
+            ordering = ['last_name', 'first_name']
+
+        def get_absolute_url(self):
+            """Returns a url to access a particular author url"""
+            return reverse('author_detail', args=[str(self.id)])
+
+        def __str__(self):
+            """String representation of the Model Object"""
+            return f"{self.last_name} {self.first_name}"
