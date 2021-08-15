@@ -3,7 +3,7 @@ from .models import BookInstance, Genre, Book, Author
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
 
 
 # Register the Admin classes for Book using the decorator
