@@ -43,6 +43,7 @@ class Book(models.Model):
     def display_genre(self):
         """Create a string for the Genre. This is required to display genre in Admin."""
         return ', '.join(genre.name for genre in self.genre.all())
+
     display_genre.short_description = 'Genre'
 
 
@@ -74,6 +75,10 @@ class BookInstance(models.Model):
 
     def __str__(self):
         """String for representing the Model Object"""
+        return f'{self.id} ({self.book.id})'
+
+    def display_id(self):
+        """function to display a joint book id and instance id"""
         return f'{self.id} ({self.book.id})'
 
 
