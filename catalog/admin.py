@@ -7,18 +7,22 @@ class AuthorAdmin(admin.ModelAdmin):
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
 
 
+class BookInstanceInlines(admin.TabularInline):
+    model = BookInstance
+
+
 # Register the Admin classes for Book using the decorator
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'display_genre')
+    inlines = [BookInstanceInlines]
 
 
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ('book', 'status', 'due_back')
+    list_display = ('book', 'status', 'due_back', 'id')
     list_filter = ('status', 'due_back')
-    # exclude = ['display_id']
 
     fieldsets = (
         (None, {
@@ -28,6 +32,7 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('status', 'due_back')
         }),
     )
+
 
 # Register your models here.
 admin.site.register(Genre)

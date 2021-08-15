@@ -77,9 +77,9 @@ class BookInstance(models.Model):
         """String for representing the Model Object"""
         return f'{self.id} ({self.book.id})'
 
-    def display_id(self):
-        """function to display a joint book id and instance id"""
-        return f'{self.id} ({self.book.id})'
+    # def display_id(self):
+    #     """function to display a joint book id and instance id"""
+    #     return f'{self.id} ({self.book.id})'
 
 
 class Author(models.Model):
