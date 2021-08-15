@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+import uuid
 
 
 # Create your models here.
@@ -39,3 +40,33 @@ class Book(models.Model):
         """Returning the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
 
+
+class BookInstance(models.Model):
+    """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text="Unique ID for this particular book across whole library")
+    book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
+    imprint = models.CharField(max_length=200)
+    due_back = models.DateField(null=True, blank=True)
+
+    LOAN_STATUS = (
+        ('m', 'Maintenance'),
+        ('0', 'On Loan'),
+        ('a', 'Available'),
+        ('r', 'Reserved')
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=LOAN_STATUS,
+        help_text="Book Availability",
+        default='m',
+        blank=True
+    )
+
+    class Meta:
+        ordering = ['due_back']
+
+    def __str__(self):
+        """String for representing the Model Object"""
+        return f'{self.id} ({self.book.id})'
