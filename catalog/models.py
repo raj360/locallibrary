@@ -20,7 +20,7 @@ class Book(models.Model):
 
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in the file
-    # author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
 
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the Book")
     isbn = models.CharField('ISBN',
