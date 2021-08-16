@@ -1,1 +1,2 @@
-locallibrary/.env
+.env
+/env
